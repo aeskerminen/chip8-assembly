@@ -154,7 +154,7 @@ section .text
         call _printf
         add esp, 0x4
 
-        sub esp, 96 ; space for local variables
+        sub esp, 148 ; space for local variables
 
         ; Opcode
         %define opcode ebp - 4
@@ -167,7 +167,7 @@ section .text
         ; Memory address
         %define I ebp - 28
 
-        ; CPU registers
+        ; CPU registers (access with [ebp - 32 * x], x = [0, 15])
         %define V0 ebp - 32
         %define V1 ebp - 36
         %define V2 ebp - 40
@@ -187,6 +187,10 @@ section .text
 
         ; Program counter
         %define PC ebp - 96
+
+        ; Stack (48 bytes)
+        %define SP ebp - 100
+        %define STACK_BASE ebp - 104
 
         ; for loop variables
         mov esi, 0
@@ -310,6 +314,10 @@ section .text
             call _printf
             add esp, 0x8
             jmp jump_switch_end
+            
+            ; stack[SP] = PC; SP++; PC = nnn
+
+            ; call instruction
 
             jump_three:
             cmp eax, 0x3000
@@ -324,6 +332,10 @@ section .text
             call _printf
             add esp, 0xC
             jmp jump_switch_end
+
+            cmp 
+            ; se instruction
+
 
             jump_four:
             cmp eax, 0x4000
