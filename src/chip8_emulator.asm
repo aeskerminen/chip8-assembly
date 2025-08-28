@@ -290,17 +290,17 @@ section .text
             jnz jump_two
 
             ; goto instruction
-            mov ecx, [nnn]
-            push ecx
-            push gotoStr
-            call _printf
-            add esp, 0x8
+                mov ecx, [nnn]
+                push ecx
+                push gotoStr
+                call _printf
+                add esp, 0x8
 
-            ; PC = nnn
-            mov ecx, [nnn]
-            mov [PC], ecx
+                ; PC = nnn
+                mov ecx, [nnn]
+                mov [PC], ecx
 
-            jmp jump_switch_end
+                jmp jump_switch_end
             ; goto instruction
 
             jump_two:
@@ -308,14 +308,14 @@ section .text
             jnz jump_three
 
             ; call instruction
-            mov ecx, [nnn]
-            push ecx
-            push callStr
-            call _printf
-            add esp, 0x8
-            jmp jump_switch_end
-            
-            ; stack[SP] = PC; SP++; PC = nnn
+                mov ecx, [nnn]
+                push ecx
+                push callStr
+                call _printf
+                add esp, 0x8
+                jmp jump_switch_end
+                
+                ; stack[SP] = PC; SP++; PC = nnn
 
             ; call instruction
 
@@ -324,16 +324,16 @@ section .text
             jnz jump_four
 
             ; se instruction
-            mov ecx, [nn]
-            push ecx
-            mov ecx, [x]
-            push ecx
-            push seStr
-            call _printf
-            add esp, 0xC
-            jmp jump_switch_end
+                mov ecx, [nn]
+                push ecx
+                mov ecx, [x]
+                push ecx
+                push seStr
+                call _printf
+                add esp, 0xC
+                jmp jump_switch_end
 
-            cmp 
+                cmp 
             ; se instruction
 
 
@@ -342,56 +342,60 @@ section .text
             jnz jump_five
 
             ; sne instruction
-            mov ecx, [nn]
-            push ecx
-            mov ecx, [x]
-            push ecx
-            push sneStr
-            call _printf
-            add esp, 0xC
-            jmp jump_switch_end
+                mov ecx, [nn]
+                push ecx
+                mov ecx, [x]
+                push ecx
+                push sneStr
+                call _printf
+                add esp, 0xC
+                jmp jump_switch_end
+            ; sne instruction
 
             jump_five:
             cmp eax, 0x5000
             jnz jump_six
             
             ; sev instruction
-            mov ecx, [nn]
-            push ecx
-            mov ecx, [x]
-            push ecx
-            push sevStr
-            call _printf
-            add esp, 0xC
-            jmp jump_switch_end
+                mov ecx, [nn]
+                push ecx
+                mov ecx, [x]
+                push ecx
+                push sevStr
+                call _printf
+                add esp, 0xC
+                jmp jump_switch_end
+            ; sev instruction
 
             jump_six:
             cmp eax, 0x6000
             jnz jump_seven
 
             ; ldi instruction
-            mov ecx, [nn]
-            push ecx
-            mov ecx, [x]
-            push ecx
-            push ldiStr
-            call _printf
-            add esp, 0xC
-            jmp jump_switch_end
+                mov ecx, [nn]
+                push ecx
+                mov ecx, [x]
+                push ecx
+                push ldiStr
+                call _printf
+                add esp, 0xC
+                jmp jump_switch_end
+            ; ldi instruction
 
             jump_seven:
             cmp eax, 0x7000
             jnz jump_eight
 
             ; add instruction
-            mov ecx, [nn]
-            push ecx
-            mov ecx, [x]
-            push ecx
-            push addStr
-            call _printf
-            add esp, 0xC
-            jmp jump_switch_end
+                mov ecx, [nn]
+                push ecx
+                mov ecx, [x]
+                push ecx
+                push addStr
+                call _printf
+                add esp, 0xC
+                jmp jump_switch_end
+            ; add instruction
 
             jump_eight:
             cmp eax, 0x8000
@@ -405,42 +409,45 @@ section .text
                 jnz jump_eight_one
 
                 ; mov instruction
-                mov ecx, [y]
-                push ecx
-                mov ecx, [x]
-                push ecx
-                push movStr
-                call _printf
-                add esp, 0xC
-                jmp jump_switch_end
+                    mov ecx, [y]
+                    push ecx
+                    mov ecx, [x]
+                    push ecx
+                    push movStr
+                    call _printf
+                    add esp, 0xC
+                    jmp jump_switch_end
+                ; mov instruction
 
                 jump_eight_one:
                 cmp ebx, 0x0001
                 jnz jump_eight_two
 
                 ; or instruction
-                mov ecx, [y]
-                push ecx
-                mov ecx, [x]
-                push ecx
-                push orStr
-                call _printf
-                add esp, 0xC
-                jmp jump_switch_end
+                    mov ecx, [y]
+                    push ecx
+                    mov ecx, [x]
+                    push ecx
+                    push orStr
+                    call _printf
+                    add esp, 0xC
+                    jmp jump_switch_end
+                ; or instruction
 
                 jump_eight_two:
                 cmp ebx, 0x0002
                 jnz jump_eight_three
 
                 ; and instruction
-                mov ecx, [y]
-                push ecx
-                mov ecx, [x]
-                push ecx
-                push andStr
-                call _printf
-                add esp, 0xC
-                jmp jump_switch_end
+                    mov ecx, [y]
+                    push ecx
+                    mov ecx, [x]
+                    push ecx
+                    push andStr
+                    call _printf
+                    add esp, 0xC
+                    jmp jump_switch_end
+                ; and instruction
 
                 jump_eight_three:
 
@@ -448,14 +455,15 @@ section .text
                 jnz jump_eight_four
 
                 ; xor instruction
-                mov ecx, [y]
-                push ecx
-                mov ecx, [x]
-                push ecx
-                push xorStr
-                call _printf
-                add esp, 0xC
-                jmp jump_switch_end
+                    mov ecx, [y]
+                    push ecx
+                    mov ecx, [x]
+                    push ecx
+                    push xorStr
+                    call _printf
+                    add esp, 0xC
+                    jmp jump_switch_end
+                ; xor instruction
 
                 jump_eight_four:
 
@@ -463,14 +471,15 @@ section .text
                 jnz jump_eight_five
 
                 ; addv instruction
-                mov ecx, [y]
-                push ecx
-                mov ecx, [x]
-                push ecx
-                push addvStr
-                call _printf
-                add esp, 0xC
-                jmp jump_switch_end
+                    mov ecx, [y]
+                    push ecx
+                    mov ecx, [x]
+                    push ecx
+                    push addvStr
+                    call _printf
+                    add esp, 0xC
+                    jmp jump_switch_end
+                ; addv instruction
 
                 jump_eight_five:
 
@@ -478,14 +487,15 @@ section .text
                 jnz jump_eight_six
 
                 ; subv instruction
-                mov ecx, [y]
-                push ecx
-                mov ecx, [x]
-                push ecx
-                push subvStr
-                call _printf
-                add esp, 0xC
-                jmp jump_switch_end
+                    mov ecx, [y]
+                    push ecx
+                    mov ecx, [x]
+                    push ecx
+                    push subvStr
+                    call _printf
+                    add esp, 0xC
+                    jmp jump_switch_end
+                ; subv instruction
 
                 jump_eight_six:
 
@@ -493,12 +503,13 @@ section .text
                 jnz jump_eight_seven
 
                 ; shr instruction
-                mov ecx, [x]
-                push ecx
-                push shrStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push shrStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; shr instruction
 
                 jump_eight_seven:
 
@@ -506,26 +517,28 @@ section .text
                 jnz jump_eight_e
 
                 ; subn instruction
-                mov ecx, [x]
-                push ecx
-                mov ecx, [y]
-                push ecx
-                push subnStr
-                call _printf
-                add esp, 0xC
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    mov ecx, [y]
+                    push ecx
+                    push subnStr
+                    call _printf
+                    add esp, 0xC
+                    jmp jump_switch_end
+                ; subn instruction
 
                 jump_eight_e:
                 cmp ebx, 0x000E
                 jnz jump_eight_default
 
                 ; shl instruction
-                mov ecx, [x]
-                push ecx
-                push shlStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push shlStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; shl instruction
 
                 jump_eight_default:
                 mov ecx, [opcode]
@@ -540,66 +553,71 @@ section .text
             jnz jump_a
             
             ; snev instruction
-            mov ecx, [y]
-            push ecx
-            mov ecx, [x]
-            push ecx
-            push snevStr
-            call _printf
-            add esp, 0xC
-            jmp jump_switch_end
+                mov ecx, [y]
+                push ecx
+                mov ecx, [x]
+                push ecx
+                push snevStr
+                call _printf
+                add esp, 0xC
+                jmp jump_switch_end
+            ; snev instruction
 
             jump_a:
             cmp eax, 0xA000
             jnz jump_b
 
             ; ldi16 instruction
-            mov ecx, [nnn]
-            push ecx
-            push ldi16Str
-            call _printf
-            add esp, 0x8
-            jmp jump_switch_end
+                mov ecx, [nnn]
+                push ecx
+                push ldi16Str
+                call _printf
+                add esp, 0x8
+                jmp jump_switch_end
+            ; ldi16 instruction
 
             jump_b:
             cmp eax, 0xB000
             jnz jump_c
 
             ; jpv0 instruction
-            mov ecx, [nnn]
-            push ecx
-            push jpv0Str
-            call _printf
-            add esp, 0x8
-            jmp jump_switch_end
+                mov ecx, [nnn]
+                push ecx
+                push jpv0Str
+                call _printf
+                add esp, 0x8
+                jmp jump_switch_end
+            ; jpv0 instruction
 
             jump_c:
             cmp eax, 0xC000
             jnz jump_d
 
             ; rnd instruction
-            mov ecx, [x]
-            push ecx
-            push rndStr
-            call _printf
-            add esp, 0x8
-            jmp jump_switch_end
+                mov ecx, [x]
+                push ecx
+                push rndStr
+                call _printf
+                add esp, 0x8
+                jmp jump_switch_end
+            ; rnd instruction
 
             jump_d:
             cmp eax, 0xD000
             jnz jump_e
 
             ; drw instruction
-            mov ecx, [n]
-            push ecx
-            mov ecx, [y]
-            push ecx
-            mov ecx, [x]
-            push ecx
-            push drwStr
-            call _printf
-            add esp, 0x10
-            jmp jump_switch_end
+                mov ecx, [n]
+                push ecx
+                mov ecx, [y]
+                push ecx
+                mov ecx, [x]
+                push ecx
+                push drwStr
+                call _printf
+                add esp, 0x10
+                jmp jump_switch_end
+            ; drw instruction
 
             jump_e:
             cmp eax, 0xE000
@@ -612,24 +630,26 @@ section .text
                 jnz jump_e_one
 
                 ; skp instruction
-                mov ecx, [x]
-                push ecx
-                push skpStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push skpStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; skp instruction
 
                 jump_e_one:
                 cmp ebx, 0x00A1
                 jnz jump_e_default
 
                 ; sknp instruction
-                mov ecx, [x]
-                push ecx
-                push sknpStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push sknpStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; sknp instruction
 
                 jump_e_default:
                 mov ecx, [opcode]
@@ -650,36 +670,39 @@ section .text
                 jnz jump_f_one
 
                 ;  ldv
-                mov ecx, [x]
-                push ecx
-                push ldvtStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push ldvtStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ;  ldv
 
                 jump_f_one:
                 cmp ebx, 0x000A
                 jnz jump_f_two
 
                 ; ldk insturction
-                mov ecx, [x]
-                push ecx
-                push ldkStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push ldkStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; ldk insturction
 
                 jump_f_two:
                 cmp ebx, 0x0015
                 jnz jump_f_three
 
                 ; lddt instruction
-                mov ecx, [x]
-                push ecx
-                push lddtStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push lddtStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; lddt instruction
 
                 jump_f_three:
 
@@ -687,12 +710,13 @@ section .text
                 jnz jump_f_four
 
                 ; ldst instruction
-                mov ecx, [x]
-                push ecx
-                push ldstStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push ldstStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; ldst instruction
 
                 jump_f_four:
 
@@ -700,12 +724,13 @@ section .text
                 jnz jump_f_five
 
                 ; addi instruction
-                mov ecx, [x]
-                push ecx
-                push addiStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push addiStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; addi instruction
 
                 jump_f_five:
 
@@ -713,12 +738,13 @@ section .text
                 jnz jump_f_six
 
                 ; ldf instruction
-                mov ecx, [x]
-                push ecx
-                push ldfStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push ldfStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; ldf instruction
 
                 jump_f_six:
 
@@ -726,12 +752,13 @@ section .text
                 jnz jump_f_seven
 
                 ; bcd instruction
-                mov ecx, [x]
-                push ecx
-                push bcdStr
-                call _printf
-                add esp, 0x8
-                jmp jump_switch_end
+                    mov ecx, [x]
+                    push ecx
+                    push bcdStr
+                    call _printf
+                    add esp, 0x8
+                    jmp jump_switch_end
+                ; bcd instruction
 
                 jump_f_seven:
 
@@ -739,16 +766,18 @@ section .text
                 jnz jump_f_e
 
                 ; stor instruction
-                print storStr
-                jmp jump_switch_end
+                    print storStr
+                    jmp jump_switch_end
+                ; stor instruction
 
                 jump_f_e:
                 cmp ebx, 0x0065
                 jnz jump_f_default
 
                 ; load instruction
-                print loadStr
-                jmp jump_switch_end
+                    print loadStr
+                    jmp jump_switch_end
+                ; load instruction
 
                 jump_f_default:
                 mov ecx, [opcode]
