@@ -168,7 +168,7 @@ section .text
         ; Memory address
         %define I ebp - 28
 
-        ; CPU registers (access with [ebp - 32 * x], x = [0, 15])
+        ; CPU registers (access with [VF + 4 * x], x = [0, 15])
         %define V0 ebp - 32
         %define V1 ebp - 36
         %define V2 ebp - 40
@@ -189,9 +189,13 @@ section .text
         ; Program counter
         %define PC ebp - 96
 
-        ; Stack (48 bytes)
+        ; Stack (48 bytes), access with [STACK_BASE - 4 * SP]
         %define SP ebp - 100
-        %define STACK_BASE ebp - 104
+        %define STACK_BASE ebp - 148
+
+        ; init stack pointer
+        mov eax, 0
+        mov [SP], eax
 
         ; for loop variables
         mov esi, 0
@@ -272,8 +276,12 @@ section .text
                 ; ret instruction
                 print retStr
 
-                ; TODO: implement 48 byte stack
                 ; PC = stack[--SP]
+                mov eax, [SP]
+                mov ebx, [STACK_BASE + eax*4]
+                mov [PC], ebx
+                dec eax
+                mov [SP], eax
 
                 jmp jump_switch_end
                 ; ret instruction
@@ -314,10 +322,17 @@ section .text
                 push callStr
                 call _printf
                 add esp, 0x8
-                jmp jump_switch_end
                 
                 ; stack[SP] = PC; SP++; PC = nnn
+                mov eax, [SP]
+                mov ebx, [PC]
+                mov [STACK_BASE + 4 * eax], ebx
+                inc eax
+                mov [SP], eax
+                mov ebx, [nnn]
+                mov [PC], ebx
 
+                jmp jump_switch_end
             ; call instruction
 
             jump_three:
@@ -332,9 +347,16 @@ section .text
                 push seStr
                 call _printf
                 add esp, 0xC
-                jmp jump_switch_end
 
-               ; cmp 
+                mov eax, [nn]
+                mov ecx, [x]
+                mov ebx, [VF + 4 * ecx]
+                cmp eax, ebx
+                jnz jump_switch_end
+                mov esi, [PC]
+                add esi, 0x2
+                mov [PC], esi
+                jmp jump_switch_end
             ; se instruction
 
 
@@ -350,6 +372,15 @@ section .text
                 push sneStr
                 call _printf
                 add esp, 0xC
+
+                mov eax, [nn]
+                mov ecx, [x]
+                mov ebx, [VF + 4 * ecx]
+                cmp eax, ebx
+                jz jump_switch_end
+                mov esi, [PC]
+                add esi, 0x2
+                mov [PC], esi
                 jmp jump_switch_end
             ; sne instruction
 
@@ -365,6 +396,16 @@ section .text
                 push sevStr
                 call _printf
                 add esp, 0xC
+
+                mov ecx, [y]
+                mov eax, [VF + 4 * ecx]
+                mov ecx, [x]
+                mov ebx, [VF + 4 * ecx]
+                cmp eax, ebx
+                jnz jump_switch_end
+                mov esi, [PC]
+                add esi, 0x2
+                mov [PC], esi
                 jmp jump_switch_end
             ; sev instruction
 
@@ -380,6 +421,10 @@ section .text
                 push ldiStr
                 call _printf
                 add esp, 0xC
+
+                mov eax, [nn]
+                mov ecx, [x]
+                mov [VF + 4 * ecx], eax
                 jmp jump_switch_end
             ; ldi instruction
 
@@ -395,6 +440,10 @@ section .text
                 push addStr
                 call _printf
                 add esp, 0xC
+
+                mov eax, [nn]
+                mov ecx, [x]
+                add [VF + 4 * ecx], eax
                 jmp jump_switch_end
             ; add instruction
 
