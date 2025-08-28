@@ -9,6 +9,7 @@ extern _fseek
 extern _rewind
 extern _fread
 extern _fclose
+extern _free
 
 %macro print 1
     push dword %1
@@ -333,7 +334,7 @@ section .text
                 add esp, 0xC
                 jmp jump_switch_end
 
-                cmp 
+               ; cmp 
             ; se instruction
 
 
@@ -795,6 +796,12 @@ section .text
         jmp main_loop
 
         end:
+        
+        mov eax, [fileBuffer]
+        push eax
+        call _free
+        add esp, 0x4
+
         mov esp, ebp
         pop ebp
 
