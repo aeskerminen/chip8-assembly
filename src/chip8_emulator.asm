@@ -254,8 +254,11 @@ section .text
                 jnz jump_one_one
 
                 ; clear instruction
-                print clearStr
-                jmp jump_switch_end
+                    print clearStr
+                    ; call openGL or whatever I will use to clear screen
+
+                    jmp jump_switch_end
+                ; clear instruction
 
                 jump_one_one:
                 cmp ebx, 0x000E
@@ -263,7 +266,12 @@ section .text
 
                 ; ret instruction
                 print retStr
+
+                ; TODO: implement 48 byte stack
+                ; PC = stack[--SP]
+
                 jmp jump_switch_end
+                ; ret instruction
 
                 jump_one_default:
                 mov ecx, [opcode]
@@ -283,7 +291,13 @@ section .text
             push gotoStr
             call _printf
             add esp, 0x8
+
+            ; PC = nnn
+            mov ecx, [nnn]
+            mov [PC], ecx
+
             jmp jump_switch_end
+            ; goto instruction
 
             jump_two:
             cmp eax, 0x2000
