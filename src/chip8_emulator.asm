@@ -466,6 +466,11 @@ section .text
                     push movStr
                     call _printf
                     add esp, 0xC
+
+                    mov ecx, [y]
+                    mov eax, [VF + 4 * ecx]
+                    mov ecx, [x]
+                    mov [VF + 4 * ecx], eax
                     jmp jump_switch_end
                 ; mov instruction
 
@@ -481,6 +486,11 @@ section .text
                     push orStr
                     call _printf
                     add esp, 0xC
+
+                    mov ecx, [y]
+                    mov eax, [VF + 4 * ecx]
+                    mov ecx, [x]
+                    or [VF + 4 * ecx], eax
                     jmp jump_switch_end
                 ; or instruction
 
@@ -496,6 +506,11 @@ section .text
                     push andStr
                     call _printf
                     add esp, 0xC
+
+                    mov ecx, [y]
+                    mov eax, [VF + 4 * ecx]
+                    mov ecx, [x]
+                    and [VF + 4 * ecx], eax
                     jmp jump_switch_end
                 ; and instruction
 
@@ -512,6 +527,11 @@ section .text
                     push xorStr
                     call _printf
                     add esp, 0xC
+
+                    mov ecx, [y]
+                    mov eax, [VF + 4 * ecx]
+                    mov ecx, [x]
+                    xor [VF + 4 * ecx], eax
                     jmp jump_switch_end
                 ; xor instruction
 
